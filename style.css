@@ -1,0 +1,166 @@
+.hubbles-container {
+    font-family: 'Source Sans Pro', sans-serif;
+    background-color: transparent;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #30363d;
+}
+
+.fork-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    margin: 20px 0;
+    padding-right: 20px;
+}
+
+.stem {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    background: linear-gradient(90deg, #1f77b4, #4ba3e3);
+    padding: 12px;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.node-s0 {
+    background: #ffffff;
+    color: #000000;
+    font-weight: bold;
+    padding: 6px;
+    border-radius: 50%;
+    box-shadow: 0 0 15px #ffffff;
+    z-index: 2;
+    flex-shrink: 0;
+    margin: 0 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.node-text {
+    position: absolute;
+    bottom: -22px;
+    color: #ffffff;
+    font-size: 0.85rem;
+}
+
+.teeth-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+    position: relative;
+}
+
+.teeth-container::before {
+    content: "";
+    position: absolute;
+    left: -25px;
+    top: 40px;
+    bottom: 40px;
+    width: 2px;
+    background: #4ba3e3;
+}
+
+.tooth-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    position: relative;
+}
+
+.tooth-row::before {
+    content: "";
+    position: absolute;
+    left: -25px;
+    top: 50%;
+    width: 25px;
+    height: 2px;
+    background: #4ba3e3;
+}
+
+/* Настройка плашек галактик */
+.galaxy-badge {
+    background: #1c2128;
+    border: 1px solid #444c56;
+    padding: 6px;
+    border-radius: 8px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    min-width: 65px;
+    cursor: help;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Стилизация картинок внутри плашек */
+.galaxy-preview {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid #30363d;
+    transition: all 0.3s ease;
+}
+
+.circle-preview {
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+}
+
+/* Эффект зума и космического неонового свечения при наведении */
+.galaxy-badge:hover {
+    transform: scale(1.2) translateY(-5px);
+    border-color: #58a6ff;
+    box-shadow: 0 10px 20px rgba(88, 166, 255, 0.4);
+    z-index: 10;
+}
+
+.galaxy-badge:hover .galaxy-preview {
+    transform: scale(1.1);
+    border-color: #58a6ff;
+}
+
+.section-title {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #8b949e;
+    margin-bottom: 6px;
+}
+
+/* 📱 Адаптация под экраны мобильных телефонов */
+@media (max-width: 768px) {
+    .fork-wrapper {
+        flex-direction: column;
+        gap: 35px;
+        padding-right: 0;
+    }
+    .teeth-container::before, .tooth-row::before {
+        display: none;
+    }
+    .stem, .tooth-row {
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+        gap: 15px;
+    }
+    .node-s0 {
+        margin: 15px 0;
+    }
+    .node-text {
+        bottom: -20px;
+    }
+    .galaxy-badge:hover {
+        transform: scale(1.1); /* Мягкий зум на мобильных без вылетов за экран */
+    }
+}
