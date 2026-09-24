@@ -9,29 +9,26 @@ class CFG:
 class GalaxyNet(nn.Module):
     def __init__(self, backbone=CFG.backbone, p_drop=CFG.p_drop):
         super().__init__()
-        # Создаем базовый бэкбон ResNet-18 без финального классификатора
+        # Создаем ResNet-18 без предсказывающих слоев
         self.trunk = timm.create_model(backbone, pretrained=False, num_classes=0, global_pool="avg")
         d = self.trunk.num_features
         
-        # Общая полносвязная шейка (neck)
+        # Общая шейка признаков
         self.neck = nn.Sequential(
-            nn.Linear(d, 256), 
-            nn.BatchNorm1d(256),
-            nn.ReLU(inplace=True), 
-            nn.Dropout(p_drop),
+            nn.Linear(d, 256), nn.BatchNorm1d(256),
+            nn.ReLU(inplace=True), nn.Dropout(p_drop),
         )
         
-        # 4 специализированных головы предсказания морфологии
-        self.h_type = nn.Linear(256, 3)   # Классификация: гладкая / дисковая / звезда
-        self.h_odd  = nn.Linear(256, 4)   # Особенности: нормальная / слияние / возмущенная / прочие
-        self.h_edge = nn.Linear(256, 1)   # Сигмоида: P(видна с ребра | диск)
-        self.h_bar  = nn.Linear(256, 1)   # Сигмоида: P(есть бар | диск, плашмя)
+        # 4 независимые головы предсказания морфологии под маппинг GZ2
+        self.h_type = nn.Linear(256, 3)   # Классификация базового типа: [smooth, disk, star]
+        self.h_odd  = nn.Linear(256, 4)   # Специфичные признаки: [normal, merger, disturbed, other]
+        self.h_edge = nn.Linear(256, 1)   # Сигмоида: Вероятность "с ребра" (P(edge-on | disk))
+        self.h_bar  = nn.Linear(256, 1)   # Сигмоида: Вероятность наличия бара (P(bar | disk, face-on))
 
     def forward(self, x):
-        # Если пришел один батч (одиночная картинка), BatchNorm1d требует размерность > 1
+        # Если пришла ровно одна картинка, BatchNorm1d требует отключения обновления статистики
         if x.size(0) == 1:
-            self.eval() # Принудительно отключаем обновление батч-нормализации
-            
+            self.eval()
         z = self.neck(self.trunk(x))
         return {
             "type": self.h_type(z), 
