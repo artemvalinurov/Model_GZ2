@@ -94,10 +94,10 @@ if uploaded_file is not None and model is not None:
             p_bar  = torch.sigmoid(out["bar"].float()).cpu().item()                  # Вероятность бара
             
         # --- Вывод результатов Головы 1 (Базовый тип) ---
-        st.write(f"**Гладкая / Эллиптическая:** {p_type[0]*100:.1f}%")
+        st.write(f"**Эллиптическая:** {p_type[0]*100:.1f}%")
         st.progress(float(p_type[0]))
         
-        st.write(f"**Дисковая / Спиральная:** {p_type[1]*100:.1f}%")
+        st.write(f"**Спиральная:** {p_type[1]*100:.1f}%")
         st.progress(float(p_type[1]))
         
         st.write(f"**Звезда / Артефакт кадра:** {p_type[2]*100:.1f}%")
