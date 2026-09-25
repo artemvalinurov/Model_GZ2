@@ -33,7 +33,7 @@ def load_galaxy_model():
     if not os.path.exists(weights_path):
         with st.spinner("🚀 Загрузка весов модели ResNet-18 (162 МБ) из облака... Пожалуйста, подождите."):
             # 🌟 ВСТАВЬТЕ СЮДА ВАШУ ПРЯМУЮ ССЫЛКУ СКАЧИВАНИЯ ИЗ ЯНДЕКС/GOOGLE ДИСКА
-            url = "https://your-direct-cloud-link-here.pt" 
+            url = "https://drive.google.com/file/d/1c9j4upI5b33d5XUIe7X2qUM85HheKDuX/view?usp=drive_link" 
             gdown.download(url, weights_path, quiet=False)
             
     if os.path.exists(weights_path):
