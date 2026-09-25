@@ -31,7 +31,7 @@ def load_galaxy_model():
     
     # Если файла весов физически нет в репозитории — качаем его из вашего облака
     if not os.path.exists(weights_path):
-        with st.spinner("🚀 Загрузка весов модели ResNet-18 (162 МБ) из облака... Пожалуйста, подождите."):
+        with st.spinner("🚀 Загрузка весов модели (162 МБ) из облака... Пожалуйста, подождите."):
             # 🌟 ВСТАВЬТЕ СЮДА ВАШУ ПРЯМУЮ ССЫЛКУ СКАЧИВАНИЯ ИЗ ЯНДЕКС/GOOGLE ДИСКА
             url = "https://drive.google.com/file/d/1c9j4upI5b33d5XUIe7X2qUM85HheKDuX/view?usp=drive_link" 
             gdown.download(url, weights_path, quiet=False)
@@ -58,7 +58,7 @@ eval_transforms = transforms.Compose([
 # ============================================================
 # 4. АДАПТИВНЫЙ ИНТЕРФЕЙС ВЕБ-САЙТА (ДЛЯ ПК И СМАРТФОНОВ)
 # ============================================================
-st.title("🌌 Многоголовый анализатор галактик (ResNet-18)")
+st.title("🌌 Многоголовый анализатор галактик")
 st.write("Профессиональный инференс на базе архитектуры GalaxyNet по стандартам обзора Galaxy Zoo 2.")
 
 if model is not None:
@@ -112,7 +112,7 @@ if uploaded_file is not None and model is not None:
         st.write(f"**Центральное ядро (Наличие Бара):** {p_bar*100:.1f}%")
         st.progress(float(p_bar))
         
-        st.write(f"**Динамика слияния (Merger):** {p_odd[1]*100:.1f}%")
+        st.write(f"**Наличие каких-либо странностей у галактики (слияния, распада, поглощения):** {p_odd[1]*100:.1f}%")
         st.progress(float(p_odd[1]))
 
         # --- СЕКЦИЯ ЭКСПЕРТНОГО ТЕКСТОВОГО ВЕРДИКТА ---
