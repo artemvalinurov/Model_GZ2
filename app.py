@@ -16,7 +16,7 @@ from model import GalaxyNet
 
 # 1. МОБИЛЬНАЯ НАСТРОЙКА ЭКРАНА (wide-режим на весь дисплей телефона)
 st.set_page_config(
-    page_title="Galaxy Classifier ResNet18",
+    page_title="Galaxy Classifier",
     page_icon="🌌",
     layout="wide",
     initial_sidebar_state="collapsed"
@@ -62,7 +62,7 @@ st.title("🌌 Многоголовый анализатор галактик")
 st.write("Профессиональный инференс на базе архитектуры GalaxyNet по стандартам обзора Galaxy Zoo 2.")
 
 if model is not None:
-    st.success("🤖 Нейросеть ResNet-18 успешно инициализирована и готова к работе.")
+    st.success("🤖 Нейросеть успешно инициализирована и готова к работе.")
 else:
     st.error("❌ Критическая ошибка: Не удалось загрузить веса модели `gz2_best (1).pt`!")
 
